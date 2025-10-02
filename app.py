@@ -1,32 +1,40 @@
 import string
-import random 
-def password_generator(min_length, numbers=True, special=True):
-    
+import random
+def password_generator(min_length,numbers = True,special_characters=True):
     letters = string.ascii_letters
     digits = string.digits
-    punct = string.punctuation
-
-    pool = letters
-    if numbers :
-        pool += digits
-    if special :
-        pool += punct
-
+    special = string.punctuation
+ 
+    characters = letters
+    if numbers:
+        characters += digits
+    if special:
+        characters += special
+    
     pwd = ""
-    has_number = True
-    has_special = True
+    meets_criteria = False
+    has_number = False
+    has_special= False
 
-    while (not has_number if numbers else False) or (not has_special if special else False) or len(pwd) < min_length :
-        new_char = random.choice(pool)
+    while not meets_criteria or len(pwd) < min_length :
+        new_char = random.choice(characters) 
         pwd += new_char
-        if new_char in digits :
-            has_number = True
-        elif new_char in punct :
-            has_special = True
 
-    return pwd 
-min_length = int(input("enter the minimum length of password you want to generate :")) 
-has_number = input("do you want to have numbers in your password y/n ? :").lower == "y" 
-has_special = input("do you want to have special characters in your password y/n ? :").lower == "y"
-pwd = password_generator(min_length,has_number,has_special)
-print("your password is : ",pwd)
+        if new_char in digits:
+            has_number = True 
+        if new_char in special :
+            has_special = True
+        
+        meets_criteria = True
+        if numbers :
+            meets_criteria = has_number
+        if special_characters :
+            meets_criteria = meets_criteria and has_special
+
+    return pwd
+
+min_length = int(input("Enter length of your password to be generated : "))
+has_number = input("Do you want numbers in your password ? y/n : ").lower == "y"
+has_special = input("Do you want special characters in your password ? y/n : ").lower == "y"
+pwd = password_generator(min_length , has_number , has_special)
+print("Here is your generated password : " ,pwd)
