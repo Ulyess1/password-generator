@@ -3,6 +3,13 @@ import csv
 import random
 from pathlib import Path
 
+def csv_library(pwd):
+    save_file = Path.cwd() / "save.csv"
+    with save_file.open("a",newline="" ,encoding= "utf-8") as f :
+     writer = csv.writer(f)
+     writer.writerow([pwd])
+    print("")
+    print("Saved password to ",save_file)
 
 def password_generator(min_length,numbers = True,special_characters=True):
     letters = string.ascii_letters
@@ -36,7 +43,6 @@ def password_generator(min_length,numbers = True,special_characters=True):
             meets_criteria = meets_criteria and has_special
 
     return pwd
-
 min_length = int(input("Enter length of your password to be generated : "))
 has_number = input("Do you want numbers in your password ? y/n : ").lower() == "y"
 print("")
@@ -45,10 +51,13 @@ print("")
 pwd = password_generator(min_length , has_number , has_special)
 print("Here is your generated password : " ,pwd)
 print("")
-## this part  only if u want to save password to save.csv you can delete it if u dont want it . 
-save_file = Path.cwd() / "save.csv"
-with save_file.open("a",newline="" ,encoding= "utf-8") as f :
-    writer = csv.writer(f)
-    writer.writerow([pwd])
-print("")
-print("Saved password to ",save_file)
+print("Do You want to save password to a file ?.")
+print("1-Yes.")
+print("2-No.")
+choice = input(" 1 / 2 :  ").strip()
+if choice == "1":  
+        csv_library(pwd)
+elif choice == "2":
+        print("Good Bye..")
+else:
+        print("Good Bye..")
