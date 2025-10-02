@@ -38,9 +38,9 @@ def password_generator(min_length,numbers = True,special_characters=True):
     return pwd
 
 min_length = int(input("Enter length of your password to be generated : "))
-has_number = input("Do you want numbers in your password ? y/n : ").lower == "y"
+has_number = input("Do you want numbers in your password ? y/n : ").lower() == "y"
 print("")
-has_special = input("Do you want special characters in your password ? y/n : ").lower == "y"
+has_special = input("Do you want special characters in your password ? y/n : ").lower() == "y"
 print("")
 pwd = password_generator(min_length , has_number , has_special)
 print("Here is your generated password : " ,pwd)
