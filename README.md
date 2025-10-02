@@ -1,83 +1,48 @@
-🔐 Password Generator
+# Password Generator
 
-A simple Python script to generate secure passwords with customizable options for length, numbers, and special characters. The generated password can optionally be saved into a save.csv file.
+Simple CLI password generator script that:
+- Creates a random password using letters, optional numbers and special characters.
+- Shows the generated password and whether it contains numbers / special chars.
+- Optionally appends the password to `save.csv` in the current working directory (uses pathlib.Path).
 
-✨ Features
+## Requirements
+- Python 3.6+
+- No external packages (uses stdlib: string, random, csv, pathlib)
 
-Generate random passwords with:
+## Files
+- `app.py` — main script containing:
+  - `password_generator(min_length, numbers=True, special_characters=True)` — returns a generated password string.
+  - `csv_library(pwd)` — appends `pwd` to `save.csv` in the current working directory.
 
-Uppercase and lowercase letters
+## Usage (Windows)
+1. Open a terminal and change to the project folder:
+   cd c:\Users\LENOVO\Documents\Projects\password
+2. Run the script:
+   python app.py
+3. Follow prompts:
+   - Enter the desired password length (integer).
+   - Answer y/n to include numbers.
+   - Answer y/n to include special characters.
+   - After the password is shown, choose to save it by selecting `1` (Yes) or `2` (No).
 
-Optional numbers
+If you choose to save, the script appends the password to `save.csv` in the folder where you ran the script.
 
-Optional special characters
+## Example session
+- Enter length: `12`
+- Numbers? `y`
+- Special characters? `n`
+- Generated password printed
+- Save? `1` → password appended to `save.csv`
 
-Minimum length defined by the user
+## Implementation notes
+- `csv_library` uses `Path.cwd()` to determine the current working directory and opens `save.csv` with `newline=""` and `encoding="utf-8"` for proper CSV writing.
+- `password_generator` builds a character pool from `string.ascii_letters` plus optional `string.digits` and `string.punctuation`. It ensures required types are present and returns a password string.
 
-Ensures generated password meets criteria (contains at least one number or special character if requested)
+## Suggestions / Improvements
+- Add argument parsing (argparse) for non-interactive use.
+- Add input validation and clearer error messages.
+- Add options to force at least one upper/lower/number/special character or to change allowed punctuation set.
+- Consider encrypting saved passwords or storing them in a secure vault instead of plain CSV.
 
-Saves generated password to a CSV file (save.csv)
-
-📂 Project Structure
-password_generator.py   # Main script
-save.csv                # File where passwords are saved (auto-created)
-
-🛠 Requirements
-
-Python 3.x
-
-Standard libraries used:
-
-string
-
-csv
-
-random
-
-pathlib
-
-(No external dependencies required.)
-
-🚀 Usage
-
-Clone or download this project.
-
-Run the script:
-
-python password_generator.py
-
-
-Follow the prompts:
-
-Enter minimum password length
-
-Choose whether to include numbers (y/n)
-
-Choose whether to include special characters (y/n)
-
-Your password will be displayed and automatically saved to save.csv.
-
-📋 Example
-Enter length of your password to be generated : 12
-
-Do you want numbers in your password ? y/n : y
-
-Do you want special characters in your password ? y/n : y
-
-Here is your generated password :  9dF&gT@z1!Lp
-
-Saved password to  /your/path/save.csv
-
-💡 Notes
-
-If you don’t want to save the password, remove the last block of code that writes to save.csv.
-
-Passwords are appended to the file each time the script is run.
-
-🔮 Future Improvements
-
-Option to name and store multiple passwords with labels (e.g., for accounts).
-
-GUI-based password generator.
-
-Option to copy password directly to clipboard.
+## License
+Use as you wish.
