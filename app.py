@@ -1,5 +1,9 @@
 import string
+import csv
 import random
+from pathlib import Path
+
+
 def password_generator(min_length,numbers = True,special_characters=True):
     letters = string.ascii_letters
     digits = string.digits
@@ -35,6 +39,16 @@ def password_generator(min_length,numbers = True,special_characters=True):
 
 min_length = int(input("Enter length of your password to be generated : "))
 has_number = input("Do you want numbers in your password ? y/n : ").lower == "y"
+print("")
 has_special = input("Do you want special characters in your password ? y/n : ").lower == "y"
+print("")
 pwd = password_generator(min_length , has_number , has_special)
 print("Here is your generated password : " ,pwd)
+print("")
+## this part  only if u want to save password to save.csv you can delete it if u dont want it . 
+save_file = Path.cwd() / "save.csv"
+with save_file.open("a",newline="" ,encoding= "utf-8") as f :
+    writer = csv.writer(f)
+    writer.writerow([pwd])
+print("")
+print("Saved password to ",save_file)
